@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>아발론</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- 배경 장식: 성 실루엣 -->
+  <svg class="skyline" viewBox="0 0 400 90" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+    <path d="M0 90V66h18v-8h6v8h8v-8h6v8h8v-8h6v8h14V40h5v-8h5v8h6v-8h5v8h6v-8h5v8h5v26h22V50h7v-7h6v7h7v-7h6v7h7v16h20V22l10-18 10 18v44h16V34h6v-9h6v9h8v-9h6v9h8v-9h6v9h6v32h24V52h7v-7h6v7h7v-7h6v7h7v14h18V44h6v-8h6v8h7v-8h6v8h6v22h20v-9h6v9h8v-9h6v9h8v-9h6v9h22v24z"/>
+  </svg>
+
+  <main>
+    <header class="title">
+      <div class="title-en">AVALON</div>
+      <div class="title-ko">아발론 · 원탁의 기사들</div>
+    </header>
+
+    <p id="conn" class="banner" hidden>연결이 끊겼습니다. 다시 연결하는 중…</p>
+
+    <!-- 입장 화면 -->
+    <section id="entry">
+      <div class="card">
+        <h2>원탁에 합류하기</h2>
+        <label class="field">
+          <span>기사의 이름</span>
+          <input id="name-input" maxlength="12" placeholder="이름" autocomplete="off">
+        </label>
+        <button id="btn-create" class="primary wide">새 원탁 열기</button>
+        <div class="divider"><span>또는</span></div>
+        <div class="row">
+          <input id="code-input" maxlength="4" placeholder="방 코드" autocomplete="off" autocapitalize="characters">
+          <button id="btn-join">참가</button>
+        </div>
+        <p id="entry-msg" class="warn center"></p>
+      </div>
+      <p class="footnote">5명에서 10명까지 · 방 안에서 채팅으로 대화</p>
+      <div class="showcase">
+        <div class="showcase-title">등 장 인 물</div>
+        <div id="showcase-grid" class="showcase-grid"></div>
+      </div>
+    </section>
+
+    <!-- 방 화면: 서버가 보내 준 view로 client.js가 통째로 다시 그린다 -->
+    <section id="room" hidden></section>
+
+    <div id="toast" hidden></div>
+  </main>
+
+  <!-- 채팅. 방 화면(#room)은 서버 갱신 때마다 통째로 다시 그려지므로, 입력 중인 글이 지워지지 않게 그 밖에 둔다.
+       좁은 화면: 오른쪽 아래 버튼을 누르면 아래에서 올라오는 창 / 넓은 화면: 오른쪽에 항상 펼쳐진 창 (style.css) -->
+  <button id="chat-fab" type="button" aria-label="대화 열기">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 3h16a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-8l-5 4v-4H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2zm3 5v2h10V8zm0 4v2h7v-2z"/></svg>
+    <span id="chat-badge" hidden></span>
+  </button>
+  <aside id="chat">
+    <div class="chat-head">
+      <span>원탁의 대화</span>
+      <button id="chat-close" type="button" class="small">닫기</button>
+    </div>
+    <div id="chat-log"></div>
+    <form id="chat-form">
+      <input id="chat-input" maxlength="200" placeholder="메시지를 입력하세요" autocomplete="off">
+      <button class="primary">보내기</button>
+    </form>
+  </aside>
+
+  <!-- 캐릭터 설명 창. 초상을 누르면 client.js 가 내용을 채워서 띄운다. -->
+  <div id="profile" hidden>
+    <div id="profile-card" class="profile-card" role="dialog" aria-modal="true"></div>
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="art.js"></script>
+  <script src="client.js"></script>
+</body>
+</html>

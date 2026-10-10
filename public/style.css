@@ -1,0 +1,724 @@
+/* 중세 테마: 어두운 석조 배경 위에 양피지 카드, 금박 테두리, 선은 감청 / 악은 진홍 */
+:root {
+  --stone: #120e0a;
+  --wood: #2b2017;
+  --wood-dark: #1a130c;
+  --parch: #efe3c6;
+  --parch-mid: #e4d4ad;
+  --parch-dark: #d3bf90;
+  --ink: #2b2118;
+  --ink-soft: #6b5a44;
+  --gold: #c9a24b;
+  --gold-light: #e9cd7f;
+  --gold-dark: #7a5c1e;
+  --good: #24468f;
+  --good-light: #5b86d8;
+  --evil: #8e1b22;
+  --evil-light: #d9534b;
+  --title-font: "Cinzel", "Gowun Batang", serif;
+  --body-font: "Gowun Batang", "Nanum Myeongjo", "Batang", serif;
+}
+
+* { box-sizing: border-box; }
+
+html { background: var(--stone); }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--parch);
+  font-family: var(--body-font);
+  font-size: 16px;
+  line-height: 1.55;
+  word-break: keep-all; /* 한글이 단어 중간에서 줄바꿈되지 않게 */
+  /* 횃불 불빛처럼 위쪽이 은은하게 밝다 */
+  background:
+    radial-gradient(60% 40% at 50% 0%, #4a2f1466 0%, transparent 70%),
+    radial-gradient(40% 30% at 0% 30%, #24468f22 0%, transparent 70%),
+    radial-gradient(40% 30% at 100% 40%, #8e1b2222 0%, transparent 70%),
+    repeating-linear-gradient(0deg, #ffffff05 0 1px, transparent 1px 34px),
+    repeating-linear-gradient(90deg, #ffffff04 0 1px, transparent 1px 68px),
+    var(--stone);
+  background-attachment: fixed;
+}
+
+.skyline {
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  width: 100%;
+  min-width: 520px;
+  max-width: 1100px;
+  transform: translateX(-50%);
+  fill: #050403;
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 0;
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: 14px 14px 96px; /* 아래 여백: 채팅 버튼이 마지막 내용을 가리지 않게 */
+}
+
+/* ---------- 제목 ---------- */
+
+.title { text-align: center; margin: 6px 0 16px; }
+.title-en {
+  font-family: var(--title-font);
+  font-weight: 800;
+  font-size: 40px;
+  letter-spacing: 0.22em;
+  padding-left: 0.22em;
+  line-height: 1.1;
+  background: linear-gradient(#f6e3a4, #c9a24b 55%, #8a6a25);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 2px 0 #000a);
+}
+.title-ko {
+  position: relative;
+  display: inline-block;
+  margin-top: 2px;
+  padding: 0 46px;
+  font-size: 13px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+}
+.title-ko::before, .title-ko::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 36px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+}
+.title-ko::before { left: 0; }
+.title-ko::after { right: 0; transform: scaleX(-1); }
+
+/* ---------- 공통 ---------- */
+
+h2 {
+  margin: 0 0 10px;
+  font-size: 18px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.06em;
+}
+h2::after {
+  content: "";
+  display: block;
+  width: 60%;
+  height: 1px;
+  margin: 8px auto 0;
+  background: linear-gradient(90deg, transparent, var(--gold-dark), transparent);
+}
+p { margin: 0 0 8px; }
+.center { text-align: center; }
+.muted { color: var(--ink-soft); font-size: 14px; }
+.warn { color: var(--evil); font-weight: 700; }
+.footnote { text-align: center; color: #a8946f; font-size: 13px; }
+
+/* 양피지 카드 */
+.card {
+  position: relative;
+  margin-bottom: 14px;
+  padding: 18px 16px 14px;
+  color: var(--ink);
+  border-radius: 6px;
+  background:
+    radial-gradient(30% 20% at 85% 90%, #b89a5a33, transparent 70%),
+    radial-gradient(25% 18% at 8% 12%, #b89a5a2a, transparent 70%),
+    linear-gradient(170deg, var(--parch) 0%, var(--parch-mid) 55%, var(--parch-dark) 100%);
+  box-shadow:
+    0 0 0 1px #5c4520,
+    inset 0 0 0 4px var(--parch),
+    inset 0 0 0 5px #b4935a,
+    inset 0 0 30px #8a6a2540,
+    0 12px 26px #000a;
+}
+
+/* 어두운 나무 패널 */
+.panel {
+  margin-bottom: 14px;
+  padding: 12px 14px;
+  border-radius: 6px;
+  color: var(--parch);
+  background: linear-gradient(var(--wood), var(--wood-dark));
+  box-shadow: 0 0 0 1px var(--gold-dark), inset 0 1px 0 #ffffff14, 0 8px 18px #0009;
+}
+
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+.row.spread { justify-content: space-between; }
+.row.around { justify-content: center; gap: 18px; margin: 14px 0 6px; }
+
+button {
+  font: inherit;
+  font-weight: 700;
+  color: var(--parch);
+  cursor: pointer;
+  padding: 10px 16px;
+  border-radius: 6px;
+  border: 1px solid #5c4520;
+  background: linear-gradient(#523a26, #2f2116);
+  box-shadow: inset 0 1px 0 #ffffff26, 0 2px 0 #0008;
+  transition: transform 0.08s, filter 0.15s;
+}
+button:hover { filter: brightness(1.12); }
+button:active { transform: translateY(2px); box-shadow: inset 0 1px 0 #ffffff26; }
+button:disabled { opacity: 0.45; cursor: default; filter: grayscale(0.5); transform: none; }
+button.primary {
+  color: #2b1d05;
+  border-color: var(--gold-dark);
+  background: linear-gradient(#f3da94, var(--gold) 55%, #a57f2c);
+  text-shadow: 0 1px 0 #fff6;
+}
+button.danger { background: linear-gradient(#b3262e, #6d1318); border-color: #4a0b0f; }
+button.small { padding: 5px 10px; font-size: 13px; }
+button.wide { display: block; width: 100%; margin-top: 10px; font-size: 17px; padding: 12px; }
+
+input:not([type="checkbox"]) {
+  font: inherit;
+  width: 100%;
+  padding: 10px 12px;
+  color: var(--ink);
+  border: 1px solid #a88a54;
+  border-radius: 6px;
+  background: #f8f0dc;
+  box-shadow: inset 0 2px 4px #6b5a4433;
+}
+input:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
+.field { display: block; }
+.field span { display: block; margin-bottom: 4px; font-size: 14px; color: var(--ink-soft); }
+#code-input { flex: 1; width: auto; text-transform: uppercase; letter-spacing: 0.3em; text-align: center; font-family: var(--title-font); }
+
+.divider { display: flex; align-items: center; gap: 10px; margin: 14px 0 10px; color: var(--ink-soft); font-size: 13px; }
+.divider::before, .divider::after { content: ""; flex: 1; height: 1px; background: #a88a54; }
+
+.banner {
+  padding: 8px 12px;
+  text-align: center;
+  color: #fff;
+  border-radius: 6px;
+  background: var(--evil);
+  box-shadow: 0 0 0 1px #4a0b0f;
+}
+
+.icon { width: 1em; height: 1em; vertical-align: -0.12em; }
+
+/* 입장 화면의 등장인물 소개 */
+.showcase { margin-top: 22px; }
+.showcase-title { text-align: center; font-size: 13px; letter-spacing: 0.3em; color: var(--gold); margin-bottom: 12px; }
+.showcase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px 6px; }
+.showcase-item { text-align: center; font-size: 12px; line-height: 1.3; color: #d9c8a0; }
+.showcase-item .art { display: block; width: 62px; height: 62px; margin: 0 auto 4px; filter: drop-shadow(0 4px 6px #000c); }
+
+/* ---------- 방 머리 ---------- */
+
+.roomcode-label { font-size: 13px; color: #a8946f; }
+.roomcode {
+  margin-left: 6px;
+  font-family: var(--title-font);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: var(--gold-light);
+}
+
+/* ---------- 원정 진행 표시 ---------- */
+
+.track { display: flex; justify-content: space-between; gap: 6px; }
+.quest { flex: 1; text-align: center; }
+.quest-no { font-family: var(--title-font); font-size: 12px; color: #a8946f; letter-spacing: 0.1em; }
+.quest-coin {
+  width: 100%;
+  max-width: 62px;
+  aspect-ratio: 1;
+  margin: 2px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-family: var(--title-font);
+  font-weight: 800;
+  font-size: 22px;
+  line-height: 1;
+  color: #cbb98f;
+  background: radial-gradient(circle at 35% 30%, #4a3a2a, #1c150e);
+  box-shadow: 0 0 0 2px #5c4520, inset 0 0 0 3px #1c150e, inset 0 0 0 4px #5c452080;
+}
+.quest-coin .icon { width: 26px; height: 26px; }
+.quest-note { min-height: 16px; font-size: 11px; color: #a8946f; }
+.quest.now .quest-coin {
+  color: var(--gold-light);
+  box-shadow: 0 0 0 2px var(--gold), inset 0 0 0 3px #1c150e, inset 0 0 0 4px var(--gold-dark), 0 0 16px #e9cd7f88;
+}
+.quest.now .quest-no { color: var(--gold-light); }
+.quest.ok .quest-coin { color: #eaf1ff; background: radial-gradient(circle at 35% 30%, var(--good-light), var(--good) 60%, #14284f); box-shadow: 0 0 0 2px var(--gold), inset 0 0 0 3px #14284f; }
+.quest.bad .quest-coin { color: #ffecea; background: radial-gradient(circle at 35% 30%, var(--evil-light), var(--evil) 60%, #4a0b0f); box-shadow: 0 0 0 2px var(--gold), inset 0 0 0 3px #4a0b0f; }
+
+/* ---------- 원탁 ---------- */
+
+.table {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  margin-bottom: 26px;
+}
+.table-top {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 48%;
+  height: 48%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  text-align: center;
+  border-radius: 50%;
+  color: var(--parch);
+  background:
+    repeating-conic-gradient(from 0deg, #00000022 0 8deg, transparent 8deg 16deg),
+    radial-gradient(circle, #6b4a2a 0%, #4a321c 55%, #2c1d10 100%);
+  box-shadow: 0 0 0 3px #2c1d10, 0 0 0 5px var(--gold-dark), 0 0 0 6px #1a130c, inset 0 0 40px #000a, 0 16px 30px #000c;
+}
+.table-title { font-size: 19px; font-weight: 700; color: var(--gold-light); text-shadow: 0 2px 2px #000; }
+.table-sub { font-size: 13px; color: #d9c8a0; }
+.table-top.good .table-title { color: #a9c6ff; }
+.table-top.evil .table-title { color: #ff9a92; }
+
+/* 연속 부결 표시 */
+.pips { display: flex; gap: 5px; margin-top: 4px; }
+.pip { width: 9px; height: 9px; transform: rotate(45deg); background: #00000066; box-shadow: 0 0 0 1px #a8842f; }
+.pip.on { background: var(--evil-light); box-shadow: 0 0 0 1px #ffb1ab, 0 0 6px #d9534b; }
+
+.seat {
+  position: absolute;
+  width: 76px;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  color: var(--parch);
+  user-select: none;
+}
+.seat-avatar { position: relative; width: 52px; height: 52px; border-radius: 50%; filter: drop-shadow(0 3px 4px #000c); }
+.seat-avatar .art { display: block; width: 100%; height: 100%; }
+.seat-name {
+  position: relative; /* 고른 자리의 빛 번짐 위로 이름이 올라오게 */
+  z-index: 1;
+  max-width: 100%;
+  margin-top: 3px;
+  padding: 0 6px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.3;
+  border-radius: 9px;
+  background: #000a;
+}
+.seat-sub { min-height: 15px; font-size: 11px; line-height: 1.3; color: #cbb98f; }
+.seat.me .seat-name { color: #2b1d05; background: linear-gradient(#f3da94, var(--gold)); }
+.seat.off .seat-avatar { filter: grayscale(1) brightness(0.55); }
+.seat.off .seat-name { text-decoration: line-through; color: #8f8370; }
+.seat.sub-good .seat-sub { color: #a9c6ff; }
+.seat.sub-evil .seat-sub { color: #ff9a92; }
+
+/* 리더의 왕관 */
+.seat-crown { position: absolute; top: -17px; left: 50%; transform: translateX(-50%); font-size: 20px; color: var(--gold-light); filter: drop-shadow(0 1px 1px #000); }
+/* 원정대 방패 */
+.seat-shield {
+  position: absolute;
+  right: -7px;
+  bottom: -4px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  color: #2b1d05;
+  border-radius: 50%;
+  background: linear-gradient(#f3da94, var(--gold));
+  box-shadow: 0 0 0 1px var(--gold-dark), 0 1px 3px #000;
+}
+.seat.onteam .seat-avatar { box-shadow: 0 0 0 3px var(--gold-light), 0 0 14px #e9cd7faa; }
+/* 투표 토큰: 엎어 둔 것 / 찬성(흰색) / 반대(검정) */
+.seat-vote {
+  position: absolute;
+  left: -7px;
+  bottom: -4px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px var(--gold-dark), 0 1px 3px #000;
+  background: repeating-linear-gradient(45deg, #6b4a2a 0 3px, #4a321c 3px 6px);
+}
+.seat-vote.yes { background: radial-gradient(circle at 35% 30%, #fff, #d9cfb6); }
+.seat-vote.no { background: radial-gradient(circle at 35% 30%, #55555c, #0b0b0d); }
+
+.seat.selectable { cursor: pointer; }
+.seat.selectable .seat-avatar { animation: beckon 1.6s ease-in-out infinite; }
+.seat.picked .seat-avatar { animation: none; box-shadow: 0 0 0 3px var(--gold-light), 0 0 18px #e9cd7f; transform: scale(1.08); }
+/* 암살 대상으로 고른 자리는 붉게 */
+.seat.target .seat-avatar { box-shadow: 0 0 0 3px var(--evil-light), 0 0 20px #ff5a4d; }
+@keyframes beckon {
+  0%, 100% { box-shadow: 0 0 0 2px #e9cd7f55; }
+  50% { box-shadow: 0 0 0 5px #e9cd7f22; }
+}
+
+/* ---------- 단계별 안내와 버튼 ---------- */
+
+.lead { text-align: center; font-size: 16px; }
+.lead b { color: #5a3410; }
+
+/* 찬반 투표 토큰 */
+button.token {
+  width: 104px;
+  height: 104px;
+  padding: 0;
+  border-radius: 50%;
+  font-size: 20px;
+  border: 0;
+}
+button.token small { display: block; font-size: 11px; font-weight: 400; letter-spacing: 0.12em; opacity: 0.75; font-family: var(--title-font); }
+button.token.approve { color: var(--ink); background: radial-gradient(circle at 35% 28%, #fff, #e6dcc2 60%, #c8ba96); box-shadow: 0 0 0 3px var(--gold), 0 0 0 5px var(--gold-dark), 0 6px 12px #0008; }
+button.token.reject { color: #f1e4c6; background: radial-gradient(circle at 35% 28%, #5a5a62, #1a1a1d 60%, #050506); box-shadow: 0 0 0 3px var(--gold), 0 0 0 5px var(--gold-dark), 0 6px 12px #0008; }
+
+/* 원정 카드 */
+button.qcard {
+  width: 112px;
+  height: 152px;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 19px;
+  color: #fff;
+  border: 0;
+  border-radius: 10px;
+}
+button.qcard .icon { width: 52px; height: 52px; }
+button.qcard.success { background: linear-gradient(160deg, var(--good-light), var(--good) 55%, #14284f); box-shadow: inset 0 0 0 3px #14284f, inset 0 0 0 5px var(--gold), 0 6px 12px #0008; }
+button.qcard.fail { background: linear-gradient(160deg, var(--evil-light), var(--evil) 55%, #4a0b0f); box-shadow: inset 0 0 0 3px #4a0b0f, inset 0 0 0 5px var(--gold), 0 6px 12px #0008; }
+
+.verdict { margin: 0 0 4px; text-align: center; font-size: 28px; font-weight: 700; letter-spacing: 0.1em; }
+.verdict.good { color: var(--good); }
+.verdict.evil { color: var(--evil); }
+
+/* ---------- 내 역할 카드 ---------- */
+
+.rolecard {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 0 auto 14px;
+  padding: 18px 16px 12px;
+  text-align: center;
+  cursor: pointer;
+  font-weight: 400;
+  color: var(--parch);
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(160deg, #3a2c1e, #1a130c);
+  box-shadow: inset 0 0 0 3px #1a130c, inset 0 0 0 5px var(--gold), inset 0 0 0 6px #1a130c, inset 0 0 0 7px var(--gold-dark), 0 12px 26px #000c;
+}
+.rolecard.good { background: linear-gradient(160deg, #2b4d99, #14284f 60%, #0c1830); }
+.rolecard.evil { background: linear-gradient(160deg, #8e1b22, #4a0b0f 60%, #2a0608); }
+.rolecard .art { width: 150px; height: 150px; filter: drop-shadow(0 6px 10px #000a); }
+.rolecard.back { padding: 12px 16px; display: flex; align-items: center; gap: 12px; max-width: none; text-align: left; }
+.rolecard.back .art { width: 54px; height: 54px; flex: none; }
+.rolecard.back b { display: block; font-size: 17px; color: var(--gold-light); }
+.rolecard.back small { color: #cbb98f; }
+.rolecard-name {
+  display: inline-block;
+  margin-top: 8px;
+  padding: 3px 26px;
+  font-size: 24px;
+  font-weight: 700;
+  color: #2b1d05;
+  background: linear-gradient(#f3da94, var(--gold));
+  clip-path: polygon(0 0, 100% 0, calc(100% - 12px) 50%, 100% 100%, 0 100%, 12px 50%);
+}
+.rolecard-team { margin-top: 6px; font-size: 14px; letter-spacing: 0.3em; color: var(--gold-light); }
+.rolecard-knows { list-style: none; margin: 10px 0 0; padding: 8px 10px; border-radius: 6px; background: #0006; text-align: left; }
+.rolecard-knows li { display: flex; justify-content: space-between; gap: 8px; padding: 2px 0; }
+.rolecard-knows span { color: #cbb98f; font-size: 14px; }
+.rolecard-hint { margin: 10px 0 4px; font-size: 14px; color: #e4d4ad; }
+.rolecard-flip { margin: 0; font-size: 12px; color: #a8946f; }
+
+/* ---------- 로비 ---------- */
+
+.opt { display: flex; align-items: center; gap: 10px; padding: 6px 4px; border-bottom: 1px dashed #a88a5488; }
+.opt:last-of-type { border-bottom: 0; }
+.opt .art { width: 40px; height: 40px; flex: none; }
+.opt b { display: block; }
+.opt small { color: var(--ink-soft); }
+.opt input { width: 20px; height: 20px; margin-left: auto; accent-color: var(--gold-dark); flex: none; }
+
+.cast { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 14px; margin-bottom: 10px; }
+.cast-item { width: 78px; text-align: center; font-size: 13px; line-height: 1.3; }
+.cast-item .art { width: 54px; height: 54px; display: block; margin: 0 auto 3px; filter: drop-shadow(0 3px 4px #0006); }
+.cast-label { text-align: center; font-weight: 700; margin: 4px 0 8px; }
+.cast-label.good { color: var(--good); }
+.cast-label.evil { color: var(--evil); }
+
+/* ---------- 기록 ---------- */
+
+.chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.chip { padding: 2px 10px; font-size: 13px; border-radius: 12px; box-shadow: 0 0 0 1px var(--gold-dark); }
+.chip.yes { color: var(--ink); background: linear-gradient(#fff, #e6dcc2); }
+.chip.no { color: #f1e4c6; background: linear-gradient(#4a4a50, #121214); }
+
+.log { display: flex; align-items: center; gap: 10px; padding: 6px 0; border-bottom: 1px dashed #a88a5488; }
+.log:last-child { border-bottom: 0; }
+.log-coin { flex: none; width: 34px; height: 34px; display: flex; align-items: center; justify-content: center; font-size: 18px; color: #fff; border-radius: 50%; box-shadow: 0 0 0 2px var(--gold-dark); }
+.log-coin.ok { background: var(--good); }
+.log-coin.bad { background: var(--evil); }
+.log small { display: block; color: var(--ink-soft); }
+
+/* ---------- 타이머 ---------- */
+
+.timer {
+  min-width: 64px;
+  margin: 2px 0;
+  padding: 0 10px;
+  font-family: var(--title-font);
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: 0.06em;
+  color: var(--gold-light);
+  border-radius: 14px;
+  background: #0008;
+  box-shadow: 0 0 0 1px var(--gold-dark);
+}
+.timer:empty { visibility: hidden; }
+.timer.urgent { color: #ffb1ab; box-shadow: 0 0 0 1px var(--evil-light), 0 0 12px #d9534b; animation: tick 1s steps(2) infinite; }
+@keyframes tick { 50% { opacity: 0.55; } }
+
+/* 시간 초과로 자동 처리됐다는 안내 */
+.notice {
+  margin: 0 0 12px;
+  padding: 8px 10px;
+  font-size: 14px;
+  color: #5a1014;
+  border-radius: 4px;
+  background: #8e1b2218;
+  box-shadow: inset 3px 0 0 var(--evil);
+}
+
+/* 로비의 제한 시간 선택 */
+select {
+  font: inherit;
+  margin-left: auto;
+  flex: none;
+  padding: 8px 10px;
+  color: var(--ink);
+  border: 1px solid #a88a54;
+  border-radius: 6px;
+  background: #f8f0dc;
+}
+select:disabled { opacity: 0.7; }
+
+/* ---------- 캐릭터 설명 창 ---------- */
+
+[data-profile] { cursor: pointer; }
+[data-profile] .art { transition: transform 0.12s; }
+[data-profile]:hover .art { transform: scale(1.08); }
+.opt-art { display: flex; flex: none; }
+
+#profile {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  overflow-y: auto;
+  background: #000c;
+}
+#profile[hidden] { display: none; }
+
+.profile-card {
+  width: 100%;
+  max-width: 340px;
+  margin: auto;
+  padding: 20px 18px 16px;
+  text-align: center;
+  color: var(--parch);
+  border-radius: 12px;
+  box-shadow: inset 0 0 0 3px #1a130c, inset 0 0 0 5px var(--gold), inset 0 0 0 6px #1a130c, inset 0 0 0 7px var(--gold-dark), 0 16px 40px #000;
+}
+.profile-card.good { background: linear-gradient(160deg, #2b4d99, #14284f 60%, #0c1830); }
+.profile-card.evil { background: linear-gradient(160deg, #8e1b22, #4a0b0f 60%, #2a0608); }
+.profile-card .art { width: 150px; height: 150px; filter: drop-shadow(0 6px 10px #000a); }
+.profile-tagline { margin: 10px 0 12px; font-size: 15px; color: #e4d4ad; }
+.profile-points { margin: 0; padding: 10px 12px; text-align: left; border-radius: 6px; background: #0006; }
+.profile-points dt { font-size: 12px; letter-spacing: 0.15em; color: var(--gold-light); }
+.profile-points dd { margin: 0 0 10px; font-size: 15px; }
+.profile-points dd:last-child { margin-bottom: 0; }
+
+/* ---------- 채팅 ---------- */
+/* client.js 가 body 에 붙이는 클래스로 보이고 숨긴다: in-room(방 안), chat-open(창 열림) */
+
+#chat-fab {
+  display: none;
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 15;
+  width: 58px;
+  height: 58px;
+  padding: 0;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: #2b1d05;
+  border: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 28%, #f6e3a4, var(--gold) 60%, #a57f2c);
+  box-shadow: 0 0 0 2px var(--gold-dark), 0 0 0 4px #1a130c, 0 8px 18px #000c;
+}
+body.in-room #chat-fab { display: flex; }
+body.in-room.chat-open #chat-fab { display: none; }
+
+#chat-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 22px;
+  height: 22px;
+  padding: 0 6px;
+  font-size: 12px;
+  line-height: 22px;
+  color: #fff;
+  border-radius: 11px;
+  background: var(--evil-light);
+  box-shadow: 0 0 0 2px #1a130c;
+}
+
+#chat {
+  display: none;
+  position: fixed;
+  left: 50%;
+  bottom: 0;
+  z-index: 20;
+  width: 100%;
+  max-width: 520px;
+  height: min(64vh, 560px);
+  height: min(64dvh, 560px);
+  transform: translateX(-50%);
+  flex-direction: column;
+  color: var(--parch);
+  border-radius: 12px 12px 0 0;
+  background: linear-gradient(var(--wood), var(--wood-dark));
+  box-shadow: 0 0 0 1px var(--gold-dark), 0 0 0 3px #1a130c, 0 0 0 4px var(--gold), 0 -12px 40px #000e;
+}
+body.in-room.chat-open #chat { display: flex; }
+
+.chat-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--gold-light);
+  border-bottom: 1px solid var(--gold-dark);
+}
+
+#chat-log {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overscroll-behavior: contain;
+}
+#chat-log:empty::before {
+  content: "아직 오간 말이 없습니다.";
+  margin: auto;
+  font-size: 14px;
+  color: #a8946f;
+}
+
+.chat-msg { max-width: 84%; align-self: flex-start; }
+.chat-msg.mine { align-self: flex-end; text-align: right; }
+.chat-meta { margin-bottom: 2px; font-size: 12px; color: var(--gold); }
+.chat-msg.mine .chat-meta { color: #a8946f; }
+.chat-bubble {
+  display: inline-block;
+  padding: 7px 12px;
+  text-align: left;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  word-break: normal;
+  border-radius: 4px 12px 12px 12px;
+  background: #3f2f20;
+  box-shadow: inset 0 0 0 1px #5c4520;
+}
+.chat-msg.mine .chat-bubble {
+  color: var(--ink);
+  border-radius: 12px 4px 12px 12px;
+  background: linear-gradient(170deg, var(--parch), var(--parch-dark));
+  box-shadow: inset 0 0 0 1px #b4935a;
+}
+
+#chat-form { display: flex; gap: 8px; padding: 10px 12px; border-top: 1px solid var(--gold-dark); }
+#chat-form input { flex: 1; min-width: 0; }
+#chat-form button { flex: none; }
+
+/* 넓은 화면: 게임 화면 오른쪽에 채팅창을 항상 펼쳐 둔다. */
+@media (min-width: 1000px) {
+  body.in-room main { margin: 0 0 0 calc(50% - 440px); }
+  body.in-room #chat {
+    display: flex;
+    left: calc(50% + 100px);
+    top: 14px;
+    bottom: 14px;
+    width: 340px;
+    height: auto;
+    transform: none;
+    border-radius: 8px;
+  }
+  body.in-room #chat-fab, #chat-close { display: none; }
+}
+
+#toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 30;
+  transform: translateX(-50%);
+  max-width: 90%;
+  padding: 10px 18px;
+  color: var(--parch);
+  border-radius: 6px;
+  background: #1a130cf2;
+  box-shadow: 0 0 0 1px var(--gold), 0 8px 20px #000c;
+}
+
+@media (max-width: 380px) {
+  .seat { width: 66px; }
+  .seat-avatar { width: 44px; height: 44px; }
+  .seat-name { font-size: 12px; }
+  .title-en { font-size: 34px; }
+  button.token { width: 92px; height: 92px; }
+}
