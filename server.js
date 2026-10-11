@@ -155,7 +155,15 @@ io.on('connection', (socket) => {
   }
 
   onAction('options', (room, playerId, msg) => Game.setOptions(room, playerId, msg));
-  onAction('start', (room, playerId) => Game.start(room, playerId));
+  onAction('start', (room, playerId) => {
+    const error = Game.start(room, playerId);
+    if (!error) {
+      // 게임이 시작되면 대기실에서 나눈 대화를 지우고 새로 시작한다. 빈 기록을 보내 각자의 채팅창도 비운다.
+      room.chat = [];
+      emitToRoom(room, 'chat-history', room.chat);
+    }
+    return error;
+  });
   onAction('propose', (room, playerId, msg) => Game.propose(room, playerId, msg.team));
   onAction('vote', (room, playerId, msg) => Game.vote(room, playerId, msg.approve));
   onAction('quest', (room, playerId, msg) => Game.playCard(room, playerId, msg.success));
