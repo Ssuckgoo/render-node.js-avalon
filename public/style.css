@@ -31,29 +31,32 @@ body {
   font-size: 16px;
   line-height: 1.55;
   word-break: keep-all; /* 한글이 단어 중간에서 줄바꿈되지 않게 */
-  /* 횃불 불빛처럼 위쪽이 은은하게 밝다 */
+  /* 밤하늘: 크기가 다른 별 무늬 세 겹(겹치는 주기를 달리해 규칙적으로 보이지 않게), 위쪽의 푸른 기운, 아래로 갈수록 따뜻한 어둠 */
   background:
-    radial-gradient(60% 40% at 50% 0%, #4a2f1466 0%, transparent 70%),
-    radial-gradient(40% 30% at 0% 30%, #24468f22 0%, transparent 70%),
-    radial-gradient(40% 30% at 100% 40%, #8e1b2222 0%, transparent 70%),
-    repeating-linear-gradient(0deg, #ffffff05 0 1px, transparent 1px 34px),
-    repeating-linear-gradient(90deg, #ffffff04 0 1px, transparent 1px 68px),
-    var(--stone);
+    radial-gradient(1.3px 1.3px at 30px 40px, #ffffffd0 50%, transparent 52%) 0 0 / 230px 190px,
+    radial-gradient(1px 1px at 120px 90px, #ffffff90 50%, transparent 52%) 0 0 / 170px 210px,
+    radial-gradient(1.7px 1.7px at 80px 150px, #ffe9b0c0 50%, transparent 52%) 0 0 / 310px 270px,
+    radial-gradient(70% 45% at 50% 0%, #2f4a8a55 0%, transparent 70%),
+    radial-gradient(45% 30% at 0% 35%, #24468f26 0%, transparent 70%),
+    radial-gradient(45% 30% at 100% 45%, #8e1b2226 0%, transparent 70%),
+    linear-gradient(#0b1124 0%, #141427 45%, #1a1210 100%);
   background-attachment: fixed;
 }
 
-.skyline {
+/* 화면 아래에 고정된 성 풍경. 좁은 화면에서는 가운데(성)만 보이고 양옆 숲은 잘린다. */
+.scene {
   position: fixed;
   left: 50%;
   bottom: 0;
   width: 100%;
-  min-width: 520px;
-  max-width: 1100px;
+  min-width: 900px;
+  max-width: 1500px; /* 아주 넓은 화면에서 풍경이 화면을 다 덮지 않게 */
   transform: translateX(-50%);
-  fill: #050403;
-  opacity: 0.9;
   pointer-events: none;
   z-index: 0;
+  /* 양옆을 흐리게 지워, 최대 폭보다 넓은 화면에서도 가장자리가 잘린 듯 보이지 않게 한다 */
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
 
 main {
@@ -211,7 +214,7 @@ input:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
 .icon { width: 1em; height: 1em; vertical-align: -0.12em; }
 
 /* 입장 화면의 등장인물 소개 */
-.showcase { margin-top: 22px; }
+.showcase { margin-top: 22px; padding: 14px 8px 16px; border-radius: 8px; background: #0a0d18c4; box-shadow: 0 0 0 1px #c9a24b40; }
 .showcase-title { text-align: center; font-size: 13px; letter-spacing: 0.3em; color: var(--gold); margin-bottom: 12px; }
 .showcase-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px 6px; }
 .showcase-item { text-align: center; font-size: 12px; line-height: 1.3; color: #d9c8a0; }
@@ -290,6 +293,11 @@ input:focus { outline: 2px solid var(--gold); outline-offset: 1px; }
     radial-gradient(circle, #6b4a2a 0%, #4a321c 55%, #2c1d10 100%);
   box-shadow: 0 0 0 3px #2c1d10, 0 0 0 5px var(--gold-dark), 0 0 0 6px #1a130c, inset 0 0 40px #000a, 0 16px 30px #000c;
 }
+/* 원탁의 상감 장식: 바깥쪽 징 박힌 테와 안쪽 금선 */
+.table-top::before, .table-top::after { content: ""; position: absolute; border-radius: 50%; pointer-events: none; }
+.table-top::before { inset: 3.5%; border: 3px dotted #c9a24b70; }
+.table-top::after { inset: 9%; border: 1px solid #c9a24b55; box-shadow: inset 0 0 0 5px #00000018, inset 0 0 0 6px #c9a24b30; }
+.table-top > * { position: relative; z-index: 1; }
 .table-title { font-size: 19px; font-weight: 700; color: var(--gold-light); text-shadow: 0 2px 2px #000; }
 .table-sub { font-size: 13px; color: #d9c8a0; }
 .table-top.good .table-title { color: #a9c6ff; }
@@ -438,7 +446,7 @@ button.qcard.fail { background: linear-gradient(160deg, var(--evil-light), var(-
 }
 .rolecard.good { background: linear-gradient(160deg, #2b4d99, #14284f 60%, #0c1830); }
 .rolecard.evil { background: linear-gradient(160deg, #8e1b22, #4a0b0f 60%, #2a0608); }
-.rolecard .art { width: 150px; height: 150px; filter: drop-shadow(0 6px 10px #000a); }
+.rolecard .art { width: 180px; height: 180px; filter: drop-shadow(0 6px 10px #000a); }
 .rolecard.back { padding: 12px 16px; display: flex; align-items: center; gap: 12px; max-width: none; text-align: left; }
 .rolecard.back .art { width: 54px; height: 54px; flex: none; }
 .rolecard.back b { display: block; font-size: 17px; color: var(--gold-light); }
@@ -566,7 +574,7 @@ select:disabled { opacity: 0.7; }
 }
 .profile-card.good { background: linear-gradient(160deg, #2b4d99, #14284f 60%, #0c1830); }
 .profile-card.evil { background: linear-gradient(160deg, #8e1b22, #4a0b0f 60%, #2a0608); }
-.profile-card .art { width: 150px; height: 150px; filter: drop-shadow(0 6px 10px #000a); }
+.profile-card .art { width: 190px; height: 190px; filter: drop-shadow(0 6px 10px #000a); }
 .profile-tagline { margin: 10px 0 12px; font-size: 15px; color: #e4d4ad; }
 .profile-points { margin: 0; padding: 10px 12px; text-align: left; border-radius: 6px; background: #0006; }
 .profile-points dt { font-size: 12px; letter-spacing: 0.15em; color: var(--gold-light); }

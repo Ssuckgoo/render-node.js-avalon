@@ -1,4 +1,5 @@
 // 웹 서버 + 소켓 연결 담당. 게임 규칙은 game.js에 있고, 여기서는 메시지를 받아 넘기고 결과를 뿌리기만 한다.
+const fs = require('fs');
 const path = require('path');
 const http = require('http');
 const express = require('express');
@@ -7,6 +8,14 @@ const Game = require('./game.js');
 
 const app = express();
 app.get('/healthz', (_req, res) => res.send('ok'));
+
+// public/portraits 폴더에 넣어 둔 역할 일러스트 파일 목록. 브라우저(art.js)가 이걸 보고 SVG 초상을 그림으로 바꾼다.
+const PORTRAIT_DIR = path.join(__dirname, 'public', 'portraits');
+app.get('/portraits.json', (_req, res) => {
+  fs.readdir(PORTRAIT_DIR, (error, files) => {
+    res.json(error ? [] : files.filter((file) => /\.(webp|png|jpe?g)$/i.test(file)));
+  });
+});
 app.use(express.static(path.join(__dirname, 'public')));
 
 const server = http.createServer(app);

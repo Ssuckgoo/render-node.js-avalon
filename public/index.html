@@ -10,9 +10,85 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- 배경 장식: 성 실루엣 -->
-  <svg class="skyline" viewBox="0 0 400 90" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
-    <path d="M0 90V66h18v-8h6v8h8v-8h6v8h8v-8h6v8h14V40h5v-8h5v8h6v-8h5v8h6v-8h5v8h5v26h22V50h7v-7h6v7h7v-7h6v7h7v16h20V22l10-18 10 18v44h16V34h6v-9h6v9h8v-9h6v9h8v-9h6v9h6v32h24V52h7v-7h6v7h7v-7h6v7h7v14h18V44h6v-8h6v8h7v-8h6v8h6v22h20v-9h6v9h8v-9h6v9h8v-9h6v9h22v24z"/>
+  <!-- 배경 장식: 달밤의 성. 뒤에서부터 달, 먼 산, 언덕, 성, 앞쪽 숲, 안개 순으로 겹쳐 그린다 -->
+  <svg class="scene" viewBox="0 0 1200 420" preserveAspectRatio="xMidYMax meet" aria-hidden="true">
+    <defs>
+      <radialGradient id="sc-moon"><stop offset="0" stop-color="#fff6d6" stop-opacity="0.5"/><stop offset="1" stop-color="#fff6d6" stop-opacity="0"/></radialGradient>
+      <radialGradient id="sc-glow"><stop offset="0" stop-color="#ffcf6b" stop-opacity="0.75"/><stop offset="1" stop-color="#ffcf6b" stop-opacity="0"/></radialGradient>
+      <linearGradient id="sc-mist" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8aa0c8" stop-opacity="0"/><stop offset="1" stop-color="#8aa0c8" stop-opacity="0.24"/></linearGradient>
+      <!-- 성벽 위의 요철(총안) -->
+      <pattern id="sc-cren" width="24" height="12" patternUnits="userSpaceOnUse"><rect width="13" height="12" fill="#080a11"/></pattern>
+      <!-- 전나무 한 그루. 밑동 가운데가 (0, 0) -->
+      <path id="sc-pine" d="M0 -78 L15 -48 H7 L22 -20 H10 L28 10 H4 V22 H-4 V10 H-28 L-10 -20 H-22 L-7 -48 H-15Z"/>
+      <!-- 불 켜진 창문 하나. 가운데가 (0, 0) -->
+      <g id="sc-window"><circle r="13" fill="url(#sc-glow)"/><path d="M-3 6 V-3 a3 3 0 0 1 6 0 V6Z" fill="#ffd77a"/></g>
+    </defs>
+
+    <!-- 달과 구름 -->
+    <circle cx="905" cy="96" r="140" fill="url(#sc-moon)"/>
+    <circle cx="905" cy="96" r="44" fill="#f6edcb"/>
+    <circle cx="890" cy="84" r="8" fill="#e0d3a8" opacity="0.7"/><circle cx="920" cy="110" r="11" fill="#e0d3a8" opacity="0.6"/><circle cx="912" cy="76" r="4" fill="#e0d3a8" opacity="0.6"/>
+    <path d="M770 128 q28 -20 60 -6 q26 -18 56 0 q30 -10 46 12 h-190z" fill="#1b2440" opacity="0.8"/>
+    <path d="M250 96 q24 -16 50 -4 q22 -14 46 2 q22 -6 34 10 h-150z" fill="#1b2440" opacity="0.6"/>
+    <path d="M826 60 q5 -5 10 0 q5 -5 10 0 M858 44 q4 -4 8 0 q4 -4 8 0 M806 82 q4 -4 8 0 q4 -4 8 0" stroke="#0b0d14" stroke-width="1.6" fill="none"/>
+
+    <!-- 먼 산 -->
+    <path d="M0 420 V254 L90 194 L170 244 L262 152 L350 234 L430 184 L520 254 L622 172 L720 244 L812 162 L900 240 L990 180 L1080 248 L1150 204 L1200 234 V420Z" fill="#171e36"/>
+    <path d="M262 152 L290 180 L272 176 L250 196Z M622 172 L650 202 L632 196 L606 212Z M812 162 L840 194 L822 188 L796 206Z M90 194 L112 216 L96 212 L78 226Z" fill="#2c3658"/>
+    <!-- 언덕 -->
+    <path d="M0 420 V314 Q150 258 300 304 Q450 344 600 296 Q760 246 900 304 Q1050 354 1200 294 V420Z" fill="#0f1425"/>
+
+    <!-- 성 -->
+    <g fill="#080a11">
+      <!-- 성벽 -->
+      <rect x="372" y="268" width="456" height="110"/>
+      <rect x="372" y="256" width="456" height="12" fill="url(#sc-cren)"/>
+      <!-- 왼쪽 끝 탑 -->
+      <rect x="352" y="214" width="48" height="164"/><rect x="348" y="202" width="56" height="12" fill="url(#sc-cren)"/>
+      <!-- 뾰족 지붕 탑들 -->
+      <rect x="452" y="178" width="42" height="200"/><path d="M444 180 L473 104 L502 180Z"/>
+      <rect x="706" y="188" width="42" height="190"/><path d="M698 190 L727 118 L756 190Z"/>
+      <!-- 오른쪽 끝 탑 -->
+      <rect x="800" y="222" width="48" height="156"/><rect x="796" y="210" width="56" height="12" fill="url(#sc-cren)"/>
+      <!-- 가운데 본채 -->
+      <rect x="548" y="134" width="104" height="244"/><rect x="544" y="122" width="112" height="12" fill="url(#sc-cren)"/>
+      <rect x="536" y="96" width="26" height="60"/><path d="M530 98 L549 54 L568 98Z"/>
+      <rect x="638" y="96" width="26" height="60"/><path d="M632 98 L651 54 L670 98Z"/>
+      <path d="M576 124 L600 30 L624 124Z"/>
+      <!-- 깃대 -->
+      <path d="M599 30 V6 h2 V30Z M472 104 V84 h2 V104Z M726 118 V98 h2 V118Z"/>
+    </g>
+    <!-- 깃발 -->
+    <path d="M601 6 h26 l-7 7 7 7 h-26z M474 84 h18 l-5 5 5 5 h-18z M728 98 h18 l-5 5 5 5 h-18z" fill="#a82a31"/>
+    <!-- 지붕과 벽의 달빛 받은 면 -->
+    <path d="M600 30 L624 124 H612Z M473 104 L502 180 H490Z M727 118 L756 190 H744Z M549 54 L568 98 H560Z M651 54 L670 98 H662Z" fill="#1f2740"/>
+    <path d="M640 134 h12 v244 h-12z M484 178 h10 v200 h-10z M738 188 h10 v190 h-10z M392 214 h8 v164 h-8z M840 222 h8 v156 h-8z" fill="#141a2c"/>
+    <!-- 성문 -->
+    <circle cx="600" cy="352" r="34" fill="url(#sc-glow)"/>
+    <path d="M580 378 V340 a20 20 0 0 1 40 0 V378Z" fill="#3a2410"/>
+    <path d="M584 378 V342 a16 16 0 0 1 32 0 V378Z" fill="#ffb347" opacity="0.55"/>
+    <path d="M592 326 V378 M600 324 V378 M608 326 V378 M584 348 H616 M584 362 H616" stroke="#1a0f06" stroke-width="2"/>
+    <!-- 불 켜진 창문 -->
+    <use href="#sc-window" x="376" y="244"/><use href="#sc-window" x="473" y="214"/><use href="#sc-window" x="473" y="258"/>
+    <use href="#sc-window" x="578" y="168"/><use href="#sc-window" x="622" y="168"/><use href="#sc-window" x="600" y="210"/>
+    <use href="#sc-window" x="578" y="258"/><use href="#sc-window" x="622" y="258"/><use href="#sc-window" x="600" y="92"/>
+    <use href="#sc-window" x="727" y="226"/><use href="#sc-window" x="727" y="270"/><use href="#sc-window" x="824" y="252"/>
+    <use href="#sc-window" x="420" y="300"/><use href="#sc-window" x="530" y="300"/><use href="#sc-window" x="676" y="300"/><use href="#sc-window" x="780" y="300"/>
+    <!-- 성문으로 이어지는 길 -->
+    <path d="M580 378 L540 420 H660 L620 378Z" fill="#12151f"/>
+
+    <!-- 앞쪽 땅과 숲 -->
+    <path d="M0 420 V380 Q200 356 420 372 Q600 386 800 370 Q1000 354 1200 380 V420Z" fill="#050608"/>
+    <g fill="#050608">
+      <use href="#sc-pine" transform="translate(40 384) scale(1.5)"/><use href="#sc-pine" transform="translate(96 388) scale(1.1)"/>
+      <use href="#sc-pine" transform="translate(150 382) scale(1.7)"/><use href="#sc-pine" transform="translate(214 386) scale(1.2)"/>
+      <use href="#sc-pine" transform="translate(270 380) scale(1.4)"/><use href="#sc-pine" transform="translate(322 384) scale(0.9)"/>
+      <use href="#sc-pine" transform="translate(884 380) scale(1)"/><use href="#sc-pine" transform="translate(936 382) scale(1.5)"/>
+      <use href="#sc-pine" transform="translate(996 386) scale(1.15)"/><use href="#sc-pine" transform="translate(1056 382) scale(1.75)"/>
+      <use href="#sc-pine" transform="translate(1120 388) scale(1.25)"/><use href="#sc-pine" transform="translate(1172 384) scale(1.55)"/>
+    </g>
+    <!-- 안개 -->
+    <rect x="0" y="290" width="1200" height="130" fill="url(#sc-mist)"/>
   </svg>
 
   <main>
