@@ -59,6 +59,28 @@ body {
   mask-image: linear-gradient(90deg, transparent, #000 12%, #000 88%, transparent);
 }
 
+/* 배경 일러스트: public/portraits 에 background.* 파일이 있으면 art.js 가 body 에 has-background 를 붙인다.
+   그림을 화면에 고정해 가득 채우고, 글자와 카드가 묻히지 않게 어두운 막을 한 겹 덮는다. 기본 성 풍경(.scene)은 숨긴다.
+   background-mobile.* 이 있으면 좁은 화면에서는 그 그림을 쓴다. */
+body.has-background::before, body.has-background-mobile::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: center / cover no-repeat;
+}
+body.has-background::before {
+  background-image: linear-gradient(#0b1124b8 0%, #0b112455 30%, #0b112480 100%), var(--background);
+}
+body.has-background .scene { display: none; }
+@media (max-width: 700px) {
+  body.has-background-mobile::before {
+    background-image: linear-gradient(#0b1124b8 0%, #0b112455 30%, #0b112480 100%), var(--background-mobile);
+  }
+  body.has-background-mobile .scene { display: none; }
+}
+
 main {
   position: relative;
   z-index: 1;

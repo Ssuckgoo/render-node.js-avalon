@@ -528,6 +528,15 @@ fetch('portraits.json')
   .then((files) => {
     for (const file of files) {
       const role = file.replace(/\.[^.]+$/, '');
+
+      // background.* 는 화면 배경, background-mobile.* 는 좁은 화면용 배경이다.
+      // 주소를 CSS 변수에 넣고 body 에 표시만 해 두면, 실제로 까는 일은 style.css 가 한다.
+      if (role === 'background' || role === 'background-mobile') {
+        document.body.style.setProperty('--' + role, `url("portraits/${encodeURIComponent(file)}")`);
+        document.body.classList.add('has-' + role);
+        continue;
+      }
+
       const art = document.querySelector(`#av-role-${role} .av-art`);
       if (!art) continue; // 역할 이름과 맞지 않는 파일은 무시한다
       // 그림은 정사각형으로 맞춰 가운데를 채운다. 화면에 이미 나와 있는 초상도 함께 바뀐다.
